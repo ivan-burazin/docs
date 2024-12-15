@@ -33,7 +33,7 @@ export default defineConfig({
           lang: 'en',
         },
       },
-      collections: ['api'],
+      root: 'api',
       sidebar: [
         {
           label: 'Getting Started',
