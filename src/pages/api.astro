@@ -1,23 +1,30 @@
 ---
 import { getCollection } from 'astro:content'
-import Layout from '../layouts/Layout.astro'
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import { getStarlightDocumentData } from '@astrojs/starlight/utils/routing'
 
 const apiDocs = await getCollection('api')
+const documentData = await getStarlightDocumentData({
+  id: 'api/index',
+  slug: 'api',
+  lang: 'en',
+})
 ---
 
-<Layout title="Daytona API Documentation">
-  <main>
-    <h1>Daytona API Documentation</h1>
-    <nav>
-      <ul>
-        {
-          apiDocs.map(doc => (
-            <li>
-              <a href={`/api/${doc.slug}`}>{doc.data.title}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-  </main>
-</Layout>
+<StarlightPage
+  frontmatter={{ title: 'Daytona API Documentation' }}
+  {...documentData}
+>
+  <h1>Daytona API Documentation</h1>
+  <nav>
+    <ul>
+      {
+        apiDocs.map(doc => (
+          <li>
+            <a href={`/api/${doc.slug}`}>{doc.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</StarlightPage>
