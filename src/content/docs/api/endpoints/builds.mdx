@@ -1,0 +1,168 @@
+---
+title: Builds
+description: API endpoints for managing builds
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing build processes.
+
+## List Builds
+
+`GET /build`
+
+Lists all builds.
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "builds": [
+      {
+        "id": "build_123",
+        "status": "completed",
+        "created_at": "2024-01-20T12:00:00Z",
+        "completed_at": "2024-01-20T12:05:00Z"
+      }
+    ]
+  }
+}
+```
+
+## Create Build
+
+`POST /build`
+
+Create a new build.
+
+### Request Body Parameters
+
+| Name | Required | Type | Description |
+|------|----------|------|-------------|
+| `repository` | Yes | string | Repository URL |
+| `branch` | No | string | Branch name (default: main) |
+| `config` | No | object | Build configuration |
+
+### Request
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "repository": "https://github.com/user/repo",
+    "branch": "main",
+    "config": {
+      "timeout": 3600
+    }
+  }' \
+  https://api.daytona.io/v1/build
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "build_123",
+    "status": "pending",
+    "created_at": "2024-01-20T12:00:00Z"
+  }
+}
+```
+
+## Get Build Data
+
+`GET /build/{buildId}`
+
+Get details about a specific build.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `buildId` | path | Yes | string | Build ID |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build/build_123
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "build_123",
+    "status": "completed",
+    "created_at": "2024-01-20T12:00:00Z",
+    "completed_at": "2024-01-20T12:05:00Z",
+    "logs": "Build completed successfully..."
+  }
+}
+```
+
+## Delete Build
+
+`DELETE /build/{buildId}`
+
+Delete a specific build.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `buildId` | path | Yes | string | Build ID |
+| `force` | query | No | boolean | Force deletion |
+
+### Request
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build/build_123
+```
+
+### Response
+
+Returns a `204 No Content` response on success.
+
+## Delete All Builds
+
+`DELETE /build`
+
+Delete all builds.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `force` | query | No | boolean | Force deletion |
+
+### Request
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build?force=true
+```
+
+### Response
+
+Returns a `204 No Content` response on success.

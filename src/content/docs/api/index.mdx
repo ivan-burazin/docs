@@ -1,0 +1,78 @@
+---
+title: API Reference
+description: Complete reference documentation for the Daytona API
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+The Daytona API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+
+## Base URL
+
+```bash
+https://api.daytona.io/v1
+```
+
+## Quick Start
+
+1. [Get your API key](/api/authentication)
+2. Make your first API request:
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build
+```
+
+## API Libraries
+
+Official libraries for integrating with the Daytona API:
+
+- [Python](https://github.com/daytonaio/daytona-python)
+- [Node.js](https://github.com/daytonaio/daytona-node)
+- [Go](https://github.com/daytonaio/daytona-go)
+
+## Making Requests
+
+The API accepts requests with JSON-encoded bodies and returns JSON-encoded responses. All API endpoints expect requests to include the `Authorization` header with a valid API key.
+
+### Request Headers
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `Authorization` | Yes | Your API key in the format: `Bearer YOUR_API_KEY` |
+| `Content-Type` | Yes* | Set to `application/json` when sending JSON in the request body |
+
+*Required only for requests with a body (POST, PUT, PATCH)
+
+### Response Format
+
+All responses are returned in JSON format. A typical successful response looks like this:
+
+```json
+{
+  "data": {
+    "id": "123",
+    "type": "build",
+    "attributes": {
+      "status": "completed",
+      "created_at": "2024-01-20T12:00:00Z"
+    }
+  }
+}
+```
+
+## API Endpoints
+
+Our API endpoints are organized around the main resources you'll be working with:
+
+- [API Keys](/api/endpoints/apikeys) - Manage API authentication keys
+- [Builds](/api/endpoints/builds) - Control build processes
+- [Git Providers](/api/endpoints/git) - Configure and manage Git providers
+- [Container Registry](/api/endpoints/registry) - Handle container registry operations
+
+For detailed information about error handling, see our [Errors guide](/api/errors).

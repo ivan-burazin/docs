@@ -1,0 +1,77 @@
+---
+title: API Versioning
+description: Understanding Daytona API versions and compatibility
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+## Version Format
+
+The Daytona API uses a simple major version number in the URL path. The current version is `v1`.
+
+```bash
+https://api.daytona.io/v1/
+```
+
+## API Stability
+
+We maintain strict backwards compatibility within a major version. Any breaking changes will be introduced in a new major version, and we'll provide ample notice before deprecating old versions.
+
+### What We Consider Breaking Changes
+
+- Removing or renaming API endpoints
+- Removing or renaming required request parameters
+- Adding new required request parameters
+- Changing response formats in incompatible ways
+- Changing authentication methods
+
+### Non-Breaking Changes
+
+- Adding new endpoints
+- Adding optional request parameters
+- Adding new properties to response objects
+- Adding new error codes
+- Performance improvements
+- Bug fixes
+
+## Version Lifecycle
+
+1. **Active Development**: Latest version with new features
+2. **Stable**: Current recommended version
+3. **Maintenance**: Security updates only
+4. **Deprecated**: Set for removal
+5. **Sunset**: No longer available
+
+## Version Support
+
+- We support each major version for a minimum of 12 months after a new version is released
+- Security fixes are backported to all supported versions
+- When a version is deprecated, we provide migration guides to newer versions
+
+## Version Headers
+
+You can optionally include the `Accept-Version` header in your requests:
+
+```bash
+curl -H "Accept-Version: v1" \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.daytona.io/v1/build
+```
+
+## Migration Guides
+
+When migrating between versions, refer to our migration guides:
+
+- [v1 Migration Guide](/api/migrations/v1)
+- [Upcoming Changes](/api/migrations/upcoming)
+
+## Best Practices
+
+1. **Specify Version Explicitly**: Always include the version in your API endpoint URLs
+2. **Monitor Announcements**: Subscribe to our changelog for version updates
+3. **Test in Staging**: Test version migrations in a staging environment first
+4. **Gradual Migration**: Migrate your applications gradually when new versions are released

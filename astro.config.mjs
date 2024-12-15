@@ -147,6 +147,67 @@ export default defineConfig({
           ],
         },
         {
+          label: 'API',
+          items: [
+            {
+              label: 'Overview',
+              link: '/api',
+              attrs: {
+                icon: 'switch.svg',
+              },
+            },
+            {
+              label: 'Authentication',
+              link: '/api/authentication',
+              attrs: {
+                icon: 'lock.svg',
+              },
+            },
+            {
+              label: 'Errors',
+              link: '/api/errors',
+              attrs: {
+                icon: 'warning.svg',
+              },
+            },
+            {
+              label: 'Pagination',
+              link: '/api/pagination',
+              attrs: {
+                icon: 'list.svg',
+              },
+            },
+            {
+              label: 'Versioning',
+              link: '/api/versioning',
+              attrs: {
+                icon: 'tag.svg',
+              },
+            },
+            {
+              label: 'API Reference',
+              items: [
+                {
+                  label: 'API Keys',
+                  link: '/api/endpoints/apikeys',
+                },
+                {
+                  label: 'Builds',
+                  link: '/api/endpoints/builds',
+                },
+                {
+                  label: 'Git Providers',
+                  link: '/api/endpoints/git',
+                },
+                {
+                  label: 'Container Registry',
+                  link: '/api/endpoints/registry',
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Tools and Resources',
           items: [
             {

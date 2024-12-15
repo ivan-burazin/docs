@@ -1,0 +1,97 @@
+---
+title: API Keys
+description: API endpoints for managing API keys
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing API keys used for authentication.
+
+## List API Keys
+
+`GET /apikey`
+
+Lists all API keys associated with your account.
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "api_keys": [
+      {
+        "name": "my-key",
+        "created_at": "2024-01-20T12:00:00Z"
+      }
+    ]
+  }
+}
+```
+
+## Generate API Key
+
+`POST /apikey/{apiKeyName}`
+
+Generate a new API key with the specified name.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `apiKeyName` | path | Yes | string | Name for the new API key |
+
+### Request
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey/my-new-key
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "name": "my-new-key",
+    "key": "daytona_key_abc123...",
+    "created_at": "2024-01-20T12:00:00Z"
+  }
+}
+```
+
+## Revoke API Key
+
+`DELETE /apikey/{apiKeyName}`
+
+Revoke an existing API key.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `apiKeyName` | path | Yes | string | Name of the API key to revoke |
+
+### Request
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey/my-key
+```
+
+### Response
+
+Returns a `204 No Content` response on success.

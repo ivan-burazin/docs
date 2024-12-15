@@ -1,0 +1,182 @@
+---
+title: Git Providers
+description: API endpoints for managing Git providers
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing Git provider integrations.
+
+## List Git Providers
+
+`GET /gitprovider`
+
+Lists all configured Git providers.
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/gitprovider
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "providers": [
+      {
+        "id": "github_main",
+        "type": "github",
+        "config": {
+          "api_url": "https://api.github.com"
+        }
+      }
+    ]
+  }
+}
+```
+
+## Set Git Provider
+
+`PUT /gitprovider`
+
+Configure a new Git provider or update an existing one.
+
+### Request Body Parameters
+
+| Name | Required | Type | Description |
+|------|----------|------|-------------|
+| `type` | Yes | string | Provider type (github, gitlab, etc.) |
+| `config` | Yes | object | Provider configuration |
+
+### Request
+
+```bash
+curl -X PUT \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "github",
+    "config": {
+      "api_url": "https://api.github.com",
+      "token": "ghp_123..."
+    }
+  }' \
+  https://api.daytona.io/v1/gitprovider
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "github_main",
+    "type": "github",
+    "config": {
+      "api_url": "https://api.github.com"
+    }
+  }
+}
+```
+
+## Get Git Provider
+
+`GET /gitprovider/{gitProviderId}`
+
+Get details about a specific Git provider.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/gitprovider/github_main
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "github_main",
+    "type": "github",
+    "config": {
+      "api_url": "https://api.github.com"
+    }
+  }
+}
+```
+
+## Remove Git Provider
+
+`DELETE /gitprovider/{gitProviderId}`
+
+Remove a Git provider configuration.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+
+### Request
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/gitprovider/github_main
+```
+
+### Response
+
+Returns a `200 OK` response on success.
+
+## Get Git Context
+
+`POST /gitprovider/context`
+
+Get context information for a Git repository.
+
+### Request Body Parameters
+
+| Name | Required | Type | Description |
+|------|----------|------|-------------|
+| `repository` | Yes | string | Repository URL or path |
+
+### Request
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "repository": "https://github.com/user/repo"
+  }' \
+  https://api.daytona.io/v1/gitprovider/context
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "provider": "github",
+    "owner": "user",
+    "repo": "repo",
+    "defaultBranch": "main"
+  }
+}
+```
