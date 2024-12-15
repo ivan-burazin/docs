@@ -19,181 +19,67 @@ const jsonLightString = fs.readFileSync(
 const myThemeDark = ExpressiveCodeTheme.fromJSONString(jsonDarkString)
 const myThemeLight = ExpressiveCodeTheme.fromJSONString(jsonLightString)
 
-// https://astro.build/config
 export default defineConfig({
   site: PUBLIC_WEB_URL,
-  base: '/docs',
   integrations: [
     react(),
     starlight({
+      title: 'Daytona API',
+      description: 'Complete API reference for Daytona',
+      base: '/api',
+      defaultLocale: 'root',
+      locales: {
+        root: {
+          label: 'English',
+          lang: 'en',
+        },
+      },
+      sidebar: [
+        {
+          label: 'Getting Started',
+          items: [
+            { label: 'Introduction', link: '/' },
+            { label: 'Authentication', link: '/authentication' },
+            { label: 'Errors', link: '/errors' },
+            { label: 'Pagination', link: '/pagination' },
+            { label: 'Versioning', link: '/versioning' }
+          ]
+        },
+        {
+          label: 'API Reference',
+          items: [
+            {
+              label: 'Authentication',
+              items: [
+                { label: 'Overview', link: '/endpoints/authentication' },
+                { label: 'API Keys', link: '/endpoints/authentication/apikeys' }
+              ]
+            },
+            {
+              label: 'Git',
+              items: [
+                { label: 'Overview', link: '/endpoints/git' },
+                { label: 'Operations', link: '/endpoints/git/git' }
+              ]
+            },
+            { label: 'Container Registry', link: '/endpoints/container-registry' },
+            { label: 'Health', link: '/endpoints/health' },
+            { label: 'Project Config', link: '/endpoints/project-config' },
+            { label: 'Provider', link: '/endpoints/provider' },
+            { label: 'Server', link: '/endpoints/server' },
+            { label: 'Target', link: '/endpoints/target' },
+            { label: 'Workspace', link: '/endpoints/workspace' }
+          ]
+        }
+      ],
+      customCss: ['./src/fonts/font-face.css', './src/styles/style.scss'],
       favicon: '/favicon.ico',
-      title: 'Daytona',
       social: {
         github: 'https://github.com/daytonaio/daytona',
       },
       editLink: {
         baseUrl: 'https://github.com/daytonaio/docs/blob/main/',
       },
-      sidebar: [
-        {
-          label: 'Home',
-          link: '/',
-          attrs: {
-            icon: 'home.svg',
-          },
-        },
-        {
-          label: 'About',
-          items: [
-            {
-              label: 'What is Daytona?',
-              link: '/about/what-is-daytona',
-              attrs: {
-                icon: 'flag.svg',
-              },
-            },
-            {
-              label: 'Getting Started',
-              link: '/about/getting-started',
-              attrs: {
-                icon: 'bookmark.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Installation',
-          items: [
-            {
-              label: 'Installation',
-              link: '/installation/installation',
-              attrs: {
-                icon: 'install.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Configuration',
-          items: [
-            {
-              label: 'Git Providers',
-              link: '/configuration/git-providers',
-              attrs: {
-                icon: 'git-branch.svg',
-              },
-            },
-            {
-              label: 'Providers',
-              link: '/configuration/providers',
-              attrs: {
-                icon: 'git-commit.svg',
-              },
-            },
-            {
-              label: 'Targets',
-              link: '/configuration/targets',
-              attrs: {
-                icon: 'tag.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Usage',
-          items: [
-            {
-              label: 'Workspaces',
-              link: '/usage/workspaces',
-              attrs: {
-                icon: 'computer.svg',
-              },
-            },
-            {
-              label: 'Projects',
-              link: '/usage/projects',
-              attrs: {
-                icon: 'folder.svg',
-              },
-            },
-            {
-              label: 'Prebuilds',
-              link: '/usage/prebuilds',
-              attrs: {
-                icon: 'prebuilds.svg',
-              },
-            },
-            {
-              label: 'IDEs',
-              link: '/usage/ide',
-              attrs: {
-                icon: 'layout.svg',
-              },
-            },
-            {
-              label: 'Builders',
-              link: '/usage/builders',
-              attrs: {
-                icon: 'tools.svg',
-              },
-            },
-            {
-              label: 'Server',
-              link: '/usage/server',
-              attrs: {
-                icon: 'server.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Tools and Resources',
-          items: [
-            {
-              label: 'CLI',
-              link: '/tools/cli',
-              attrs: {
-                icon: 'terminal.svg',
-              },
-            },
-            {
-              label: 'API',
-              link: '/tools/api',
-              attrs: {
-                icon: 'switch.svg',
-              },
-            },
-            {
-              label: 'Docker Extension',
-              link: '/tools/docker-extension',
-              attrs: {
-                icon: 'docker.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Misc',
-          items: [
-            {
-              label: 'Telemetry',
-              link: '/misc/telemetry',
-              attrs: {
-                icon: 'pulse.svg',
-              },
-            },
-            {
-              label: 'Troubleshooting',
-              link: '/misc/troubleshooting',
-              attrs: {
-                icon: 'warning.svg',
-              },
-            },
-          ],
-        },
-      ],
-      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
-      customCss: ['./src/fonts/font-face.css', './src/styles/style.scss'],
       components: {
         Footer: './src/components/Footer.astro',
         MarkdownContent: './src/components/MarkdownContent.astro',
@@ -219,9 +105,9 @@ export default defineConfig({
       },
     }),
   ],
-  output: 'hybrid',
+  output: 'server',
   adapter: node({
-    mode: 'middleware',
+    mode: 'standalone',
   }),
   vite: {
     ssr: {
