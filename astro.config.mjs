@@ -35,7 +35,17 @@ export default defineConfig({
       sidebar: [
         {
           label: 'API Reference',
-          autogenerate: { directory: 'api' },
+          autogenerate: {
+            directory: 'api',
+            order: [
+              'index',
+              'authentication',
+              'errors',
+              'pagination',
+              'versioning',
+              'endpoints'
+            ]
+          }
         },
       ],
       customCss: ['./src/fonts/font-face.css', './src/styles/style.scss'],
