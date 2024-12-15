@@ -189,19 +189,19 @@ export default defineConfig({
               items: [
                 {
                   label: 'API Keys',
-                  link: '/api/endpoints/apikeys',
+                  link: '/api/endpoints/authentication/apikeys',
                 },
                 {
                   label: 'Builds',
-                  link: '/api/endpoints/builds',
+                  link: '/api/endpoints/compute/builds',
                 },
                 {
                   label: 'Git Providers',
-                  link: '/api/endpoints/git',
+                  link: '/api/endpoints/git/git',
                 },
                 {
                   label: 'Container Registry',
-                  link: '/api/endpoints/registry',
+                  link: '/api/endpoints/registry/registry',
                 },
               ],
             },
@@ -215,13 +215,6 @@ export default defineConfig({
               link: '/tools/cli',
               attrs: {
                 icon: 'terminal.svg',
-              },
-            },
-            {
-              label: 'API',
-              link: '/tools/api',
-              attrs: {
-                icon: 'switch.svg',
               },
             },
             {
