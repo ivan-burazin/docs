@@ -27,9 +27,12 @@ export default defineConfig({
     starlight({
       title: 'Daytona API',
       description: 'Complete API reference for Daytona',
-      defaultLocale: {
-        label: 'English',
-        lang: 'en',
+      defaultLocale: 'en',
+      locales: {
+        en: {
+          label: 'English',
+          lang: 'en',
+        },
       },
       sidebar: [
         {
