@@ -21,7 +21,6 @@ const myThemeLight = ExpressiveCodeTheme.fromJSONString(jsonLightString)
 
 export default defineConfig({
   site: PUBLIC_WEB_URL,
-  base: '/api',
   integrations: [
     react(),
     starlight({
@@ -34,16 +33,15 @@ export default defineConfig({
           lang: 'en',
         },
       },
-      source: './src/content/api',
       sidebar: [
         {
           label: 'Getting Started',
           items: [
-            { label: 'Introduction', link: '/' },
-            { label: 'Authentication', link: '/authentication' },
-            { label: 'Errors', link: '/errors' },
-            { label: 'Pagination', link: '/pagination' },
-            { label: 'Versioning', link: '/versioning' }
+            { label: 'Introduction', link: '/api' },
+            { label: 'Authentication', link: '/api/authentication' },
+            { label: 'Errors', link: '/api/errors' },
+            { label: 'Pagination', link: '/api/pagination' },
+            { label: 'Versioning', link: '/api/versioning' }
           ]
         },
         {
@@ -52,24 +50,24 @@ export default defineConfig({
             {
               label: 'Authentication',
               items: [
-                { label: 'Overview', link: '/endpoints/authentication' },
-                { label: 'API Keys', link: '/endpoints/authentication/apikeys' }
+                { label: 'Overview', link: '/api/endpoints/authentication' },
+                { label: 'API Keys', link: '/api/endpoints/authentication/apikeys' }
               ]
             },
             {
               label: 'Git',
               items: [
-                { label: 'Overview', link: '/endpoints/git' },
-                { label: 'Operations', link: '/endpoints/git/git' }
+                { label: 'Overview', link: '/api/endpoints/git' },
+                { label: 'Operations', link: '/api/endpoints/git/git' }
               ]
             },
-            { label: 'Container Registry', link: '/endpoints/container-registry' },
-            { label: 'Health', link: '/endpoints/health' },
-            { label: 'Project Config', link: '/endpoints/project-config' },
-            { label: 'Provider', link: '/endpoints/provider' },
-            { label: 'Server', link: '/endpoints/server' },
-            { label: 'Target', link: '/endpoints/target' },
-            { label: 'Workspace', link: '/endpoints/workspace' }
+            { label: 'Container Registry', link: '/api/endpoints/container-registry' },
+            { label: 'Health', link: '/api/endpoints/health' },
+            { label: 'Project Config', link: '/api/endpoints/project-config' },
+            { label: 'Provider', link: '/api/endpoints/provider' },
+            { label: 'Server', link: '/api/endpoints/server' },
+            { label: 'Target', link: '/api/endpoints/target' },
+            { label: 'Workspace', link: '/api/endpoints/workspace' }
           ]
         }
       ],
