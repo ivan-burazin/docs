@@ -1,0 +1,96 @@
+---
+title: Project Config API
+description: API endpoints for managing project configurations
+---
+
+The Project Config API allows you to manage project configurations and prebuilds.
+
+## List Project Configs
+
+```http
+GET /project-config
+```
+
+Lists all available project configurations.
+
+## Get Project Config
+
+```http
+GET /project-config/:configName
+```
+
+Retrieves a specific project configuration.
+
+## Set Project Config
+
+```http
+PUT /project-config
+```
+
+Creates or updates a project configuration.
+
+## Delete Project Config
+
+```http
+DELETE /project-config/:configName
+```
+
+Deletes a project configuration.
+
+## Set Default Project Config
+
+```http
+PATCH /project-config/:configName/set-default
+```
+
+Sets a project configuration as the default.
+
+## Get Default Project Config
+
+```http
+GET /project-config/default/:gitUrl
+```
+
+Gets the default project configuration for a Git URL.
+
+## Prebuild Operations
+
+### List Prebuilds
+
+```http
+GET /project-config/prebuild
+```
+
+Lists all available prebuilds.
+
+### Set Prebuild
+
+```http
+PUT /project-config/:configName/prebuild
+```
+
+Creates or updates a prebuild configuration.
+
+### Get Prebuild
+
+```http
+GET /project-config/:configName/prebuild/:prebuildId
+```
+
+Retrieves a specific prebuild configuration.
+
+### Delete Prebuild
+
+```http
+DELETE /project-config/:configName/prebuild/:prebuildId
+```
+
+Deletes a prebuild configuration.
+
+### List Prebuilds for Project Config
+
+```http
+GET /project-config/:configName/prebuild
+```
+
+Lists all prebuilds for a specific project configuration.

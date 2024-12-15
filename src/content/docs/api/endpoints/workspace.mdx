@@ -1,0 +1,111 @@
+---
+title: Workspace API
+description: API endpoints for managing workspaces
+---
+
+The Workspace API allows you to create, manage, and control development workspaces.
+
+## List Workspaces
+
+```http
+GET /workspace
+```
+
+Lists all available workspaces.
+
+### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "workspace-123",
+      "type": "workspace",
+      "attributes": {
+        "status": "running"
+      }
+    }
+  ]
+}
+```
+
+## Get Workspace
+
+```http
+GET /workspace/:workspaceId
+```
+
+Retrieves details about a specific workspace.
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| workspaceId | string | The ID of the workspace |
+
+## Create Workspace
+
+```http
+POST /workspace
+```
+
+Creates a new workspace.
+
+### Request Body
+
+```json
+{
+  "name": "my-workspace",
+  "provider": "local"
+}
+```
+
+## Start Workspace
+
+```http
+POST /workspace/:workspaceId/start
+```
+
+Starts a stopped workspace.
+
+## Stop Workspace
+
+```http
+POST /workspace/:workspaceId/stop
+```
+
+Stops a running workspace.
+
+## Remove Workspace
+
+```http
+DELETE /workspace/:workspaceId
+```
+
+Permanently removes a workspace.
+
+## Project Operations
+
+### Start Project
+
+```http
+POST /workspace/:workspaceId/:projectId/start
+```
+
+Starts a specific project in a workspace.
+
+### Stop Project
+
+```http
+POST /workspace/:workspaceId/:projectId/stop
+```
+
+Stops a specific project in a workspace.
+
+### Set Project State
+
+```http
+POST /workspace/:workspaceId/:projectId/state
+```
+
+Updates the state of a specific project.

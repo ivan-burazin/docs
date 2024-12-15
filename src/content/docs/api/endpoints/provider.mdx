@@ -1,0 +1,66 @@
+---
+title: Provider API
+description: API endpoints for managing providers
+---
+
+The Provider API allows you to manage and configure providers for your Daytona environment.
+
+## List Providers
+
+```http
+GET /provider
+```
+
+Lists all available providers.
+
+### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "provider-123",
+      "type": "provider",
+      "attributes": {
+        "name": "aws",
+        "status": "installed"
+      }
+    }
+  ]
+}
+```
+
+## Install Provider
+
+```http
+POST /provider/install
+```
+
+Installs a new provider.
+
+### Request Body
+
+```json
+{
+  "provider": "aws",
+  "config": {
+    "region": "us-west-2"
+  }
+}
+```
+
+## Uninstall Provider
+
+```http
+POST /provider/:provider/uninstall
+```
+
+Uninstalls a provider.
+
+## Get Target Manifest
+
+```http
+GET /provider/:provider/target-manifest
+```
+
+Retrieves the target manifest for a provider.
