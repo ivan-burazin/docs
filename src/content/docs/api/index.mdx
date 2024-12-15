@@ -14,18 +14,18 @@ The Daytona API is organized around REST. Our API has predictable resource-orien
 ## Base URL
 
 ```bash
-https://api.daytona.io/v1
+http://localhost:3986
 ```
 
 ## Quick Start
 
-1. [Get your API key](/api/authentication)
+1. [Get your API key](/docs/api/authentication)
 2. Make your first API request:
 
 ```bash
 curl -X GET \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/build
+  http://localhost:3986/build
 ```
 
 ## API Libraries
@@ -74,5 +74,9 @@ Our API endpoints are organized around the main resources you'll be working with
 - [Builds](/api/endpoints/builds) - Control build processes
 - [Git Providers](/api/endpoints/git) - Configure and manage Git providers
 - [Container Registry](/api/endpoints/registry) - Handle container registry operations
+- [Workspaces](/api/endpoints/workspace) - Manage development workspaces
+- [Project Config](/api/endpoints/project-config) - Configure projects and prebuilds
+- [Provider](/api/endpoints/provider) - Manage infrastructure providers
+- [Server](/api/endpoints/server) - Configure server settings
 
 For detailed information about error handling, see our [Errors guide](/api/errors).
