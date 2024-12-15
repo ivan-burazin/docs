@@ -34,7 +34,7 @@ export default defineConfig({
           lang: 'en',
         },
       },
-      contentDir: './src/content/api',
+      source: './src/content/api',
       sidebar: [
         {
           label: 'Getting Started',
