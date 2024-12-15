@@ -1,0 +1,70 @@
+---
+title: Provider API
+description: API endpoints for managing providers
+---
+
+The Provider API allows you to manage and configure providers for your Daytona environment.
+
+## List Providers
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/provider
+```
+
+Lists all available providers.
+
+### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "provider-123",
+      "type": "provider",
+      "attributes": {
+        "name": "aws",
+        "status": "installed"
+      }
+    }
+  ]
+}
+```
+
+## Install Provider
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "provider": "aws",
+    "config": {
+      "region": "us-west-2"
+    }
+  }' \
+  http://localhost:3986/provider/install
+```
+
+Installs a new provider.
+
+## Uninstall Provider
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/provider/aws/uninstall
+```
+
+Uninstalls a provider.
+
+## Get Target Manifest
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/provider/aws/target-manifest
+```
+
+Retrieves the target manifest for a provider.

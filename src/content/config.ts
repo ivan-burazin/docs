@@ -10,5 +10,13 @@ export const collections = {
       }),
     }),
   }),
+  api: defineCollection({
+    schema: docsSchema({
+      extend: z.object({
+        licence: z.string().optional(),
+        distribution: z.string().optional(),
+      }),
+    }),
+  }),
   i18n: defineCollection({ type: 'data', schema: i18nSchema() }),
 }

@@ -1,0 +1,42 @@
+---
+title: Target
+description: API endpoints for managing targets
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing targets.
+
+## List Targets
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/target
+```
+
+Lists all available targets.
+
+## Get Target
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/target/{target}
+```
+
+Get details for a specific target.
+
+## Set Default Target
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/target/{target}/set-default
+```
+
+Sets a target as the default.

@@ -1,0 +1,50 @@
+---
+title: Container Registry
+description: API endpoints for managing container registries
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing container registry configurations.
+
+## List Container Registries
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/container-registry
+```
+
+Lists all configured container registries.
+
+## Get Container Registry
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/container-registry/{server}
+```
+
+Get details for a specific container registry server.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `server` | path | Yes | string | Registry server address |
+
+### Response
+
+```json
+{
+  "data": {
+    "server": "registry.example.com",
+    "username": "user",
+    "configured": true
+  }
+}
+```

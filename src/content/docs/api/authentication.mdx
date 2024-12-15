@@ -1,0 +1,86 @@
+---
+title: Authentication
+description: Learn how to authenticate your requests to the Daytona API
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+The Daytona API uses API keys to authenticate requests. You can manage your API keys through the API or CLI.
+
+## API Keys
+
+Your API keys carry many privileges, so be sure to keep them secure. Don't share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
+
+Authentication is performed via the `Authorization` header with a bearer token:
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/build
+```
+
+## Managing API Keys
+
+### Creating API Keys
+
+You can create API keys using either the API or CLI:
+
+#### Using the API
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey/my-key-name
+```
+
+#### Using the CLI
+```bash
+daytona apikey create my-key-name
+```
+
+### Listing API Keys
+
+View all your active API keys:
+
+#### Using the API
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey
+```
+
+#### Using the CLI
+```bash
+daytona apikey list
+```
+
+### Revoking API Keys
+
+Remove an API key when it's no longer needed:
+
+#### Using the API
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.daytona.io/v1/apikey/my-key-name
+```
+
+#### Using the CLI
+```bash
+daytona apikey delete my-key-name
+```
+
+## Best Practices
+
+1. **Keep Keys Secure**: Never share your API keys or commit them to version control
+2. **Use Environment Variables**: Store API keys in environment variables rather than in your code
+3. **Regular Rotation**: Periodically rotate your API keys to minimize security risks
+4. **Least Privilege**: Create different API keys for different purposes to limit exposure
+
+## API Key Limits
+
+- Maximum of 10 active API keys per account
+- Keys cannot be recovered once lost - create a new one if needed
+- API key names must be unique within your account

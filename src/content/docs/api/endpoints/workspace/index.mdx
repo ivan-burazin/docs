@@ -1,0 +1,132 @@
+---
+title: Workspace
+description: API endpoints for managing workspaces
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoints for managing workspaces and projects.
+
+## List Workspaces
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace
+```
+
+Lists all workspaces.
+
+## Get Workspace
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}
+```
+
+Get details for a specific workspace.
+
+## Start Workspace
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/start
+```
+
+Starts a workspace.
+
+## Stop Workspace
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/stop
+```
+
+Stops a workspace.
+
+## Project Operations
+
+### Start Project
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/start
+```
+
+Starts a specific project in a workspace.
+
+### Stop Project
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/stop
+```
+
+Stops a specific project in a workspace.
+
+### Get Project State
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/state
+```
+
+Gets the current state of a project.
+
+## Toolbox Operations
+
+### File Operations
+
+#### List Files
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/toolbox/files
+```
+
+Lists files in the project directory.
+
+#### Search Files
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"pattern": "*.js"}' \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/toolbox/files/search
+```
+
+Searches for files matching a pattern.
+
+### Git Operations
+
+#### Get Git Status
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/toolbox/git/status
+```
+
+Gets the Git status of the project.
+
+#### List Branches
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/workspace/{workspaceId}/{projectId}/toolbox/git/branches
+```
+
+Lists all Git branches.

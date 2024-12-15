@@ -1,0 +1,32 @@
+---
+title: Health
+description: API endpoint for health checks
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+Endpoint for checking API health status.
+
+## Health Check
+
+```bash
+curl -X GET \
+  http://localhost:3986/health
+```
+
+Get the health status of the API server.
+
+### Response
+
+```json
+{
+  "status": "healthy",
+  "version": "1.0.0"
+}
+```
+
+This endpoint does not require authentication and can be used to verify that the API server is running and responding to requests.

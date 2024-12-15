@@ -1,0 +1,104 @@
+---
+title: Pagination
+description: Learn about paginating and filtering API responses
+---
+
+import Label from '@components/Label.astro'
+
+<Label>
+  Distribution: **Open Source**
+</Label>
+
+## Pagination
+
+For endpoints that return lists of items, the Daytona API uses cursor-based pagination to provide consistent results when navigating through large datasets.
+
+### Pagination Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | integer | Page number (1-based) |
+| `per_page` | integer | Number of items per page (default: 30, max: 100) |
+
+### Example Request
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  "https://api.daytona.io/v1/build?page=2&per_page=50"
+```
+
+### Response Format
+
+Paginated responses include metadata about the current page and links to navigate:
+
+```json
+{
+  "data": [
+    // ... array of items
+  ],
+  "meta": {
+    "current_page": 2,
+    "per_page": 50,
+    "total_items": 547,
+    "total_pages": 11
+  },
+  "links": {
+    "first": "/v1/build?page=1&per_page=50",
+    "prev": "/v1/build?page=1&per_page=50",
+    "next": "/v1/build?page=3&per_page=50",
+    "last": "/v1/build?page=11&per_page=50"
+  }
+}
+```
+
+## Filtering
+
+Many list endpoints support filtering to narrow down results.
+
+### Common Filter Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `status` | string | Filter by status (e.g., "completed", "failed") |
+| `created_after` | string | ISO 8601 datetime |
+| `created_before` | string | ISO 8601 datetime |
+
+### Example with Filters
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  "https://api.daytona.io/v1/build?status=completed&created_after=2024-01-01T00:00:00Z"
+```
+
+## Rate Limiting
+
+The API implements rate limiting to ensure stability and fair usage. Limits are applied on a per-API key basis.
+
+### Rate Limit Headers
+
+All API responses include headers with rate limit information:
+
+| Header | Description |
+|--------|-------------|
+| `X-RateLimit-Limit` | Maximum requests per hour |
+| `X-RateLimit-Remaining` | Remaining requests in the current window |
+| `X-RateLimit-Reset` | Unix timestamp when the limit resets |
+
+### Example Response Headers
+
+```http
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4999
+X-RateLimit-Reset: 1623456789
+```
+
+### Rate Limit Exceeded
+
+When you exceed the rate limit, you'll receive a `429 Too Many Requests` response. The response will include a `Retry-After` header indicating how many seconds to wait before retrying.
+
+### Best Practices
+
+1. Monitor rate limit headers in your responses
+2. Implement exponential backoff when retrying requests
+3. Cache responses when possible to reduce API calls
+4. Use bulk operations when available instead of multiple single requests
