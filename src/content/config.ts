@@ -10,5 +10,8 @@ export const collections = {
       }),
     }),
   }),
+  api: defineCollection({
+    schema: docsSchema(),
+  }),
   i18n: defineCollection({ type: 'data', schema: i18nSchema() }),
 }
