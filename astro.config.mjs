@@ -24,8 +24,7 @@ export default defineConfig({
   integrations: [
     react(),
     starlight({
-      title: 'Daytona API',
-      description: 'Complete API reference for Daytona',
+      title: 'Daytona Documentation',
       defaultLocale: 'en',
       locales: {
         en: {
@@ -33,47 +32,13 @@ export default defineConfig({
           lang: 'en',
         },
       },
-      root: 'api',
       sidebar: [
         {
-          label: 'Getting Started',
-          items: [
-            { label: 'Introduction', link: '/api' },
-            { label: 'Authentication', link: '/api/authentication' },
-            { label: 'Errors', link: '/api/errors' },
-            { label: 'Pagination', link: '/api/pagination' },
-            { label: 'Versioning', link: '/api/versioning' }
-          ]
-        },
-        {
           label: 'API Reference',
-          items: [
-            {
-              label: 'Authentication',
-              items: [
-                { label: 'Overview', link: '/api/endpoints/authentication' },
-                { label: 'API Keys', link: '/api/endpoints/authentication/apikeys' }
-              ]
-            },
-            {
-              label: 'Git',
-              items: [
-                { label: 'Overview', link: '/api/endpoints/git' },
-                { label: 'Operations', link: '/api/endpoints/git/git' }
-              ]
-            },
-            { label: 'Container Registry', link: '/api/endpoints/container-registry' },
-            { label: 'Health', link: '/api/endpoints/health' },
-            { label: 'Project Config', link: '/api/endpoints/project-config' },
-            { label: 'Provider', link: '/api/endpoints/provider' },
-            { label: 'Server', link: '/api/endpoints/server' },
-            { label: 'Target', link: '/api/endpoints/target' },
-            { label: 'Workspace', link: '/api/endpoints/workspace' }
-          ]
-        }
+          autogenerate: { directory: 'api' },
+        },
       ],
       customCss: ['./src/fonts/font-face.css', './src/styles/style.scss'],
-      favicon: '/favicon.ico',
       social: {
         github: 'https://github.com/daytonaio/daytona',
       },

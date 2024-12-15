@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../layouts/Layout.astro'
+
+const apiDocs = await getCollection('api')
+---
+
+<Layout title="Daytona API Documentation">
+  <main>
+    <h1>Daytona API Documentation</h1>
+    <nav>
+      <ul>
+        {
+          apiDocs.map(doc => (
+            <li>
+              <a href={`/api/${doc.slug}`}>{doc.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </main>
+</Layout>
