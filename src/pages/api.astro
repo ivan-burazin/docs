@@ -1,19 +1,19 @@
 ---
 import { getCollection } from 'astro:content'
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
-import { createPathData } from '@astrojs/starlight/utils/routing'
 
 const apiDocs = await getCollection('api')
 const frontmatter = {
   title: 'Daytona API Documentation',
   description: 'Complete reference documentation for the Daytona API',
   template: 'splash',
+  sidebar: {
+    label: 'API Documentation',
+  },
 }
-
-const pathData = await createPathData({ locale: 'en' })
 ---
 
-<StarlightPage frontmatter={frontmatter} {...pathData}>
+<StarlightPage frontmatter={frontmatter}>
   <h1>Daytona API Documentation</h1>
   <nav>
     <ul>

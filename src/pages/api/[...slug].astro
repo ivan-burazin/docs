@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
-import { createPathData } from '@astrojs/starlight/utils/routing'
 
 export async function getStaticPaths() {
   const apiDocs = await getCollection('api')
@@ -13,9 +12,15 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props
 const { Content } = await entry.render()
-const pathData = await createPathData({ locale: 'en' })
+
+const frontmatter = {
+  ...entry.data,
+  sidebar: {
+    label: entry.data.title,
+  },
+}
 ---
 
-<StarlightPage frontmatter={entry.data} {...pathData}>
+<StarlightPage frontmatter={frontmatter}>
   <Content />
 </StarlightPage>
