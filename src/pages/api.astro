@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import '../styles/api.scss'
 
 const apiDocs = await getCollection('api')
 const frontmatter = {
@@ -9,21 +10,38 @@ const frontmatter = {
   template: 'splash',
   sidebar: {
     label: 'API Documentation',
+    order: 1,
   },
 }
+
+const categories = [
+  {
+    title: 'Getting Started',
+    items: apiDocs.filter(doc => !doc.slug.includes('/')),
+  },
+  {
+    title: 'API Reference',
+    items: apiDocs.filter(doc => doc.slug.includes('endpoints/')),
+  },
+]
 ---
 
 <StarlightPage frontmatter={frontmatter}>
-  <h1>Daytona API Documentation</h1>
-  <nav>
-    <ul>
-      {
-        apiDocs.map(doc => (
-          <li>
-            <a href={`/api/${doc.slug}`}>{doc.data.title}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+  <div class="api-landing">
+    {
+      categories.map(category => (
+        <section>
+          <h2>{category.title}</h2>
+          <div class="endpoint-list">
+            {category.items.map(doc => (
+              <a href={`/api/${doc.slug}`}>
+                <h3>{doc.data.title}</h3>
+                {doc.data.description && <p>{doc.data.description}</p>}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
 </StarlightPage>

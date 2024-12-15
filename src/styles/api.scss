@@ -1,0 +1,32 @@
+.api-landing {
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 2rem 0;
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--sl-color-white);
+  }
+
+  .endpoint-list {
+    display: grid;
+    gap: 1rem;
+
+    a {
+      display: block;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background: var(--sl-color-gray-6);
+      text-decoration: none;
+
+      &:hover {
+        background: var(--sl-color-gray-5);
+      }
+    }
+  }
+}
