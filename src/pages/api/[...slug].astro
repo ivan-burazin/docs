@@ -1,25 +1,21 @@
 ---
 import { getCollection } from 'astro:content'
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
-import { getStarlightDocumentData } from '@astrojs/starlight/utils/routing'
+import { createPathData } from '@astrojs/starlight/utils/routing'
 
 export async function getStaticPaths() {
-  const apiPages = await getCollection('api')
-  return apiPages.map(page => ({
-    params: { slug: page.slug },
-    props: { page },
+  const apiDocs = await getCollection('api')
+  return apiDocs.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
   }))
 }
 
-const { page } = Astro.props
-const { Content } = await page.render()
-const documentData = await getStarlightDocumentData({
-  id: `api/${page.id}`,
-  slug: `api/${page.slug}`,
-  lang: 'en',
-})
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const pathData = await createPathData({ locale: 'en' })
 ---
 
-<StarlightPage frontmatter={page.data} {...documentData}>
+<StarlightPage frontmatter={entry.data} {...pathData}>
   <Content />
 </StarlightPage>
