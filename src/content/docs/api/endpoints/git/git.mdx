@@ -22,7 +22,7 @@ Lists all configured Git providers.
 ```bash
 curl -X GET \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/gitprovider
+  http://localhost:3986/gitprovider
 ```
 
 ### Response
@@ -69,7 +69,7 @@ curl -X PUT \
       "token": "ghp_123..."
     }
   }' \
-  https://api.daytona.io/v1/gitprovider
+  http://localhost:3986/gitprovider
 ```
 
 ### Response
@@ -103,7 +103,7 @@ Get details about a specific Git provider.
 ```bash
 curl -X GET \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/gitprovider/github_main
+  http://localhost:3986/gitprovider/github_main
 ```
 
 ### Response
@@ -137,7 +137,7 @@ Remove a Git provider configuration.
 ```bash
 curl -X DELETE \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/gitprovider/github_main
+  http://localhost:3986/gitprovider/github_main
 ```
 
 ### Response
@@ -165,7 +165,7 @@ curl -X POST \
   -d '{
     "repository": "https://github.com/user/repo"
   }' \
-  https://api.daytona.io/v1/gitprovider/context
+  http://localhost:3986/gitprovider/context
 ```
 
 ### Response
@@ -177,6 +177,206 @@ curl -X POST \
     "owner": "user",
     "repo": "repo",
     "defaultBranch": "main"
+  }
+}
+```
+
+## Get Git Namespaces
+
+`GET /gitprovider/{gitProviderId}/namespaces`
+
+Get available Git namespaces for a provider.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+| `page` | query | No | integer | Page number |
+| `per_page` | query | No | integer | Items per page |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/gitprovider/github_main/namespaces
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "namespaces": [
+      {
+        "id": "user",
+        "name": "User Name",
+        "type": "user"
+      }
+    ]
+  }
+}
+```
+
+## Get Git User
+
+`GET /gitprovider/{gitProviderId}/user`
+
+Get user information for a Git provider.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/gitprovider/github_main/user
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "123",
+    "login": "username",
+    "name": "User Name",
+    "email": "user@example.com"
+  }
+}
+```
+
+## Get Git Repositories
+
+`GET /gitprovider/{gitProviderId}/{namespaceId}/repositories`
+
+Get repositories for a namespace.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+| `namespaceId` | path | Yes | string | Namespace ID |
+| `page` | query | No | integer | Page number |
+| `per_page` | query | No | integer | Items per page |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/gitprovider/github_main/user/repositories
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "repositories": [
+      {
+        "id": "repo1",
+        "name": "repository-name",
+        "fullName": "user/repository-name",
+        "private": false,
+        "defaultBranch": "main"
+      }
+    ]
+  }
+}
+```
+
+## Get Repository Branches
+
+`GET /gitprovider/{gitProviderId}/{namespaceId}/{repositoryId}/branches`
+
+Get branches for a repository.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+| `namespaceId` | path | Yes | string | Namespace ID |
+| `repositoryId` | path | Yes | string | Repository ID |
+| `page` | query | No | integer | Page number |
+| `per_page` | query | No | integer | Items per page |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/gitprovider/github_main/user/repo1/branches
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "branches": [
+      {
+        "name": "main",
+        "protected": false
+      }
+    ]
+  }
+}
+```
+
+## Get Repository Pull Requests
+
+`GET /gitprovider/{gitProviderId}/{namespaceId}/{repositoryId}/pull-requests`
+
+Get pull requests for a repository.
+
+### Parameters
+
+| Name | Location | Required | Type | Description |
+|------|----------|----------|------|-------------|
+| `gitProviderId` | path | Yes | string | Provider ID |
+| `namespaceId` | path | Yes | string | Namespace ID |
+| `repositoryId` | path | Yes | string | Repository ID |
+| `page` | query | No | integer | Page number |
+| `per_page` | query | No | integer | Items per page |
+
+### Request
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/gitprovider/github_main/user/repo1/pull-requests
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "pullRequests": [
+      {
+        "id": 1,
+        "number": 1,
+        "title": "Feature branch",
+        "state": "open",
+        "head": {
+          "ref": "feature-branch",
+          "sha": "abc123"
+        },
+        "base": {
+          "ref": "main",
+          "sha": "def456"
+        }
+      }
+    ]
   }
 }
 ```

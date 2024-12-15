@@ -22,7 +22,7 @@ const myThemeLight = ExpressiveCodeTheme.fromJSONString(jsonLightString)
 // https://astro.build/config
 export default defineConfig({
   site: PUBLIC_WEB_URL,
-  base: '/docs',
+  base: '',
   integrations: [
     react(),
     starlight({
@@ -34,217 +34,56 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/daytonaio/docs/blob/main/',
       },
+      collections: {
+        api: {
+          directory: 'src/content/api',
+          slug: ({ id }) => `/api/${id.replace(/^api\//, '')}`,
+        },
+      },
       sidebar: [
         {
-          label: 'Home',
-          link: '/',
-          attrs: {
-            icon: 'home.svg',
-          },
-        },
-        {
-          label: 'About',
+          label: 'API Documentation',
           items: [
+            { label: 'Introduction', link: '/api' },
+            { label: 'Authentication', link: '/api/authentication' },
+            { label: 'Errors', link: '/api/errors' },
+            { label: 'Pagination', link: '/api/pagination' },
+            { label: 'Versioning', link: '/api/versioning' },
             {
-              label: 'What is Daytona?',
-              link: '/about/what-is-daytona',
-              attrs: {
-                icon: 'flag.svg',
-              },
-            },
-            {
-              label: 'Getting Started',
-              link: '/about/getting-started',
-              attrs: {
-                icon: 'bookmark.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Installation',
-          items: [
-            {
-              label: 'Installation',
-              link: '/installation/installation',
-              attrs: {
-                icon: 'install.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Configuration',
-          items: [
-            {
-              label: 'Git Providers',
-              link: '/configuration/git-providers',
-              attrs: {
-                icon: 'git-branch.svg',
-              },
-            },
-            {
-              label: 'Providers',
-              link: '/configuration/providers',
-              attrs: {
-                icon: 'git-commit.svg',
-              },
-            },
-            {
-              label: 'Targets',
-              link: '/configuration/targets',
-              attrs: {
-                icon: 'tag.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Usage',
-          items: [
-            {
-              label: 'Workspaces',
-              link: '/usage/workspaces',
-              attrs: {
-                icon: 'computer.svg',
-              },
-            },
-            {
-              label: 'Projects',
-              link: '/usage/projects',
-              attrs: {
-                icon: 'folder.svg',
-              },
-            },
-            {
-              label: 'Prebuilds',
-              link: '/usage/prebuilds',
-              attrs: {
-                icon: 'prebuilds.svg',
-              },
-            },
-            {
-              label: 'IDEs',
-              link: '/usage/ide',
-              attrs: {
-                icon: 'layout.svg',
-              },
-            },
-            {
-              label: 'Builders',
-              link: '/usage/builders',
-              attrs: {
-                icon: 'tools.svg',
-              },
-            },
-            {
-              label: 'Server',
-              link: '/usage/server',
-              attrs: {
-                icon: 'server.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'API',
-          items: [
-            {
-              label: 'Overview',
-              link: '/api',
-              attrs: {
-                icon: 'switch.svg',
-              },
-            },
-            {
-              label: 'Authentication',
-              link: '/api/authentication',
-              attrs: {
-                icon: 'lock.svg',
-              },
-            },
-            {
-              label: 'Errors',
-              link: '/api/errors',
-              attrs: {
-                icon: 'warning.svg',
-              },
-            },
-            {
-              label: 'Pagination',
-              link: '/api/pagination',
-              attrs: {
-                icon: 'list.svg',
-              },
-            },
-            {
-              label: 'Versioning',
-              link: '/api/versioning',
-              attrs: {
-                icon: 'tag.svg',
-              },
-            },
-            {
-              label: 'API Reference',
+              label: 'Endpoints',
               items: [
                 {
-                  label: 'API Keys',
-                  link: '/api/endpoints/authentication/apikeys',
+                  label: 'Authentication',
+                  items: [
+                    { label: 'Overview', link: '/api/endpoints/authentication' },
+                    { label: 'API Keys', link: '/api/endpoints/authentication/apikeys' }
+                  ]
                 },
                 {
-                  label: 'Builds',
-                  link: '/api/endpoints/compute/builds',
+                  label: 'Compute',
+                  items: [
+                    { label: 'Overview', link: '/api/endpoints/compute' },
+                    { label: 'Builds', link: '/api/endpoints/compute/builds' }
+                  ]
                 },
                 {
-                  label: 'Git Providers',
-                  link: '/api/endpoints/git/git',
+                  label: 'Git',
+                  items: [
+                    { label: 'Overview', link: '/api/endpoints/git' },
+                    { label: 'Operations', link: '/api/endpoints/git/git' }
+                  ]
                 },
-                {
-                  label: 'Container Registry',
-                  link: '/api/endpoints/registry/registry',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Tools and Resources',
-          items: [
-            {
-              label: 'CLI',
-              link: '/tools/cli',
-              attrs: {
-                icon: 'terminal.svg',
-              },
-            },
-            {
-              label: 'Docker Extension',
-              link: '/tools/docker-extension',
-              attrs: {
-                icon: 'docker.svg',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Misc',
-          items: [
-            {
-              label: 'Telemetry',
-              link: '/misc/telemetry',
-              attrs: {
-                icon: 'pulse.svg',
-              },
-            },
-            {
-              label: 'Troubleshooting',
-              link: '/misc/troubleshooting',
-              attrs: {
-                icon: 'warning.svg',
-              },
-            },
-          ],
-        },
+                { label: 'Container Registry', link: '/api/endpoints/container-registry' },
+                { label: 'Health', link: '/api/endpoints/health' },
+                { label: 'Project Config', link: '/api/endpoints/project-config' },
+                { label: 'Provider', link: '/api/endpoints/provider' },
+                { label: 'Server', link: '/api/endpoints/server' },
+                { label: 'Target', link: '/api/endpoints/target' },
+                { label: 'Workspace', link: '/api/endpoints/workspace' }
+              ]
+            }
+          ]
+        }
       ],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
       customCss: ['./src/fonts/font-face.css', './src/styles/style.scss'],
@@ -273,9 +112,9 @@ export default defineConfig({
       },
     }),
   ],
-  output: 'hybrid',
+  output: 'server',
   adapter: node({
-    mode: 'middleware',
+    mode: 'standalone',
   }),
   vite: {
     ssr: {

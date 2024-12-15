@@ -1,0 +1,122 @@
+---
+title: Project Config API
+description: API endpoints for managing project configurations
+---
+
+The Project Config API allows you to manage project configurations and prebuilds.
+
+## List Project Configs
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config
+```
+
+Lists all available project configurations.
+
+## Get Project Config
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName
+```
+
+Retrieves a specific project configuration.
+
+## Set Project Config
+
+```bash
+curl -X PUT \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"configName": "example-config", "settings": {"key": "value"}}' \
+  http://localhost:3986/project-config
+```
+
+Creates or updates a project configuration.
+
+## Delete Project Config
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName
+```
+
+Deletes a project configuration.
+
+## Set Default Project Config
+
+```bash
+curl -X PATCH \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName/set-default
+```
+
+Sets a project configuration as the default.
+
+## Get Default Project Config
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/default/:gitUrl
+```
+
+Gets the default project configuration for a Git URL.
+
+## Prebuild Operations
+
+### List Prebuilds
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/prebuild
+```
+
+Lists all available prebuilds.
+
+### Set Prebuild
+
+```bash
+curl -X PUT \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"prebuildId": "example-prebuild", "settings": {"key": "value"}}' \
+  http://localhost:3986/project-config/:configName/prebuild
+```
+
+Creates or updates a prebuild configuration.
+
+### Get Prebuild
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName/prebuild/:prebuildId
+```
+
+Retrieves a specific prebuild configuration.
+
+### Delete Prebuild
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName/prebuild/:prebuildId
+```
+
+Deletes a prebuild configuration.
+
+### List Prebuilds for Project Config
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/project-config/:configName/prebuild
+```
+
+Lists all prebuilds for a specific project configuration.

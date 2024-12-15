@@ -22,7 +22,7 @@ Lists all API keys associated with your account.
 ```bash
 curl -X GET \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/apikey
+  http://localhost:3986/apikey
 ```
 
 ### Response
@@ -57,7 +57,7 @@ Generate a new API key with the specified name.
 ```bash
 curl -X POST \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/apikey/my-new-key
+  http://localhost:3986/apikey/my-new-key
 ```
 
 ### Response
@@ -89,7 +89,7 @@ Revoke an existing API key.
 ```bash
 curl -X DELETE \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.daytona.io/v1/apikey/my-key
+  http://localhost:3986/apikey/my-key
 ```
 
 ### Response

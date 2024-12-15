@@ -19,7 +19,7 @@ http://localhost:3986
 
 ## Quick Start
 
-1. [Get your API key](/docs/api/authentication)
+1. [Get your API key](/api/authentication)
 2. Make your first API request:
 
 ```bash
@@ -70,13 +70,14 @@ All responses are returned in JSON format. A typical successful response looks l
 
 Our API endpoints are organized around the main resources you'll be working with:
 
-- [API Keys](/api/endpoints/apikeys) - Manage API authentication keys
-- [Builds](/api/endpoints/builds) - Control build processes
-- [Git Providers](/api/endpoints/git) - Configure and manage Git providers
-- [Container Registry](/api/endpoints/registry) - Handle container registry operations
-- [Workspaces](/api/endpoints/workspace) - Manage development workspaces
-- [Project Config](/api/endpoints/project-config) - Configure projects and prebuilds
+- [Authentication](/api/endpoints/authentication) - Manage authentication and API keys
+- [Builds](/api/endpoints/compute/builds) - Control build processes and prebuilds
+- [Git Providers](/api/endpoints/git) - Configure and manage Git provider integrations
+- [Container Registry](/api/endpoints/container-registry) - Handle container registry operations
+- [Project Config](/api/endpoints/project-config) - Configure project settings
 - [Provider](/api/endpoints/provider) - Manage infrastructure providers
-- [Server](/api/endpoints/server) - Configure server settings
+- [Server](/api/endpoints/server) - Configure server settings and options
+- [Workspace](/api/endpoints/workspace) - Manage workspaces and projects
+- [Target](/api/endpoints/target) - Configure deployment targets
 
 For detailed information about error handling, see our [Errors guide](/api/errors).

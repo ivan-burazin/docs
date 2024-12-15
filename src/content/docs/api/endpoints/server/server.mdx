@@ -1,0 +1,48 @@
+---
+title: Server API
+description: API endpoints for server management
+---
+
+The Server API provides endpoints for managing server configuration and operations.
+
+## Get Server Config
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/server/config
+```
+
+Retrieves the current server configuration.
+
+## Set Server Config
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "value"}' \
+  http://localhost:3986/server/config
+```
+
+Updates the server configuration.
+
+## Generate Network Key
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/server/network-key
+```
+
+Generates a new network key for the server.
+
+## Get Server Logs
+
+```bash
+curl -X GET \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  http://localhost:3986/server/logs
+```
+
+Retrieves server log files.
