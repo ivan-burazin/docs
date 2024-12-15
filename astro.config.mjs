@@ -21,18 +21,15 @@ const myThemeLight = ExpressiveCodeTheme.fromJSONString(jsonLightString)
 
 export default defineConfig({
   site: PUBLIC_WEB_URL,
+  base: '/api',
   integrations: [
     react(),
     starlight({
       title: 'Daytona API',
       description: 'Complete API reference for Daytona',
-      base: '/api',
-      defaultLocale: 'root',
-      locales: {
-        root: {
-          label: 'English',
-          lang: 'en',
-        },
+      defaultLocale: {
+        label: 'English',
+        lang: 'en',
       },
       sidebar: [
         {
