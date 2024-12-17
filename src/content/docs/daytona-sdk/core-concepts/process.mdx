@@ -1,0 +1,96 @@
+---
+title: Process Management
+description: Learn how to execute code and commands in your Daytona workspace.
+---
+
+The Daytona SDK provides powerful capabilities for executing code and shell commands within your workspace.
+
+## Code Execution
+
+### Running Python Code
+
+```python
+# Execute Python code directly
+response = workspace.process.code_run('''
+def add(a, b):
+    return a + b
+print(add(3, 4))
+''')
+
+
+if response.code == 0:
+    print(f"Output: {response.result}")
+else:
+    print(f"Error: {response.result}")
+```
+
+### Running Shell Commands
+
+```python
+# Execute shell commands
+result = workspace.process.exec('ls -la')
+print(f"Exit code: {result.code}")
+print(f"Output: {result.output}")
+```
+
+## Advanced Process Management
+
+### Environment Variables
+
+```python
+# Set environment variables for a command
+result = workspace.process.exec('echo $PATH', env={
+    'PATH': '/custom/path:$PATH'
+})
+```
+
+### Working Directory
+
+```python
+# Execute in specific directory
+result = workspace.process.exec('pwd', cwd='/project/src')
+```
+
+### Command Chaining
+
+```python
+# Execute multiple commands
+workspace.process.exec('mkdir -p build && cd build && cmake ..')
+```
+
+## Error Handling
+
+```python
+try:
+    response = workspace.process.code_run('print(undefined_variable)')
+    if response.code != 0:
+        print(f"Execution failed: {response.result}")
+except Exception as e:
+    print(f"Process error: {e}")
+```
+
+## Best Practices
+
+1. Always check return codes:
+
+```python
+result = workspace.process.exec('npm install')
+if result.code != 0:
+    raise Exception(f"Command failed: {result.output}")
+```
+
+2. Use appropriate timeouts:
+
+```python
+# Long-running commands
+result = workspace.process.exec('npm install', timeout=300)
+```
+
+3. Handle output appropriately:
+
+```python
+# Capture and process command output
+result = workspace.process.exec('git status')
+if 'nothing to commit' in result.output:
+    print("Working directory is clean")
+```

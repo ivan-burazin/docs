@@ -1,0 +1,47 @@
+---
+title: Daytona SDK
+description: A powerful toolkit for managing development workspaces, executing code, and handling file operations.
+---
+
+The Daytona SDK is a comprehensive toolkit that enables you to programmatically manage development workspaces, execute code, handle file operations, and integrate with development tools. It provides a clean and intuitive API for both Python and TypeScript environments.
+
+## Key Features
+
+- **Workspace Management**: Create and manage isolated development environments
+- **File Operations**: Comprehensive file system manipulation capabilities
+- **Process Execution**: Run code and commands in isolated environments
+- **Git Integration**: Clone repositories and manage version control
+- **LSP Support**: Language Server Protocol integration for code intelligence
+- **Cross-Platform**: Support for both Python and TypeScript
+
+## Quick Example
+
+```python
+from daytona_sdk import Daytona
+from daytona_sdk.daytona import CreateWorkspaceParams
+
+# Initialize the SDK
+daytona = Daytona()
+
+# Create a workspace
+params = CreateWorkspaceParams(
+    language='python',
+    image='ai-test:1'
+)
+workspace = daytona.create(params)
+
+# Run some code
+response = workspace.process.code_run('print("Hello from Daytona!")')
+print(response.result)
+
+# Clean up
+daytona.remove(workspace)
+```
+
+## Getting Started
+
+Check out our [Quick Start Guide](/daytona-sdk/quickstart) to begin using the Daytona SDK in your projects.
+
+## Installation
+
+Visit our [Installation Guide](/daytona-sdk/installation) for detailed setup instructions.

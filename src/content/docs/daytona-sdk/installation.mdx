@@ -1,0 +1,82 @@
+---
+title: Installation Guide
+description: Detailed instructions for installing and configuring the Daytona SDK.
+---
+
+## Python Installation
+
+### Requirements
+
+- Python 3.7 or higher
+- pip package manager
+
+### Installing the Package
+
+```bash
+pip install daytona-sdk
+```
+
+### Verifying Installation
+
+```python
+from daytona_sdk import Daytona
+
+# Should print the version number
+print(Daytona.version())
+```
+
+## TypeScript/JavaScript Installation
+
+### Requirements
+
+- Node.js 14 or higher
+- npm, yarn, or pnpm package manager
+
+### Installing the Package
+
+```bash
+# Using npm
+npm install @daytona/sdk
+
+# Using yarn
+yarn add @daytona/sdk
+
+# Using pnpm
+pnpm add @daytona/sdk
+```
+
+### Verifying Installation
+
+```typescript
+import { Daytona } from '@daytona/sdk';
+
+// Should print the version number
+console.log(Daytona.version());
+```
+
+## Configuration
+
+The SDK automatically uses default configuration settings. You can customize these by:
+
+```python
+from daytona_sdk import Daytona
+
+# Custom configuration
+daytona = Daytona(
+    api_url='your_api_url',
+    api_key='your_api_key'
+)
+```
+
+## Environment Variables
+
+The SDK supports the following environment variables:
+
+- `DAYTONA_API_URL`: Custom API endpoint
+- `DAYTONA_API_KEY`: Your API key for authentication
+
+## Next Steps
+
+- Follow our [Quick Start Guide](/daytona-sdk/quickstart)
+- Learn about [Core Concepts](/daytona-sdk/core-concepts/workspace)
+- Check out [Best Practices](/daytona-sdk/best-practices)

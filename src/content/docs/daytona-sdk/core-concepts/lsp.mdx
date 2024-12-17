@@ -1,0 +1,121 @@
+---
+title: LSP Integration
+description: Learn how to use Language Server Protocol (LSP) features in your Daytona workspace.
+---
+
+The Daytona SDK provides Language Server Protocol (LSP) integration for enhanced code intelligence and development features.
+
+## Setting Up LSP
+
+```python
+# Create and start LSP server
+lsp = workspace.create_lsp_server('typescript', '/project')
+lsp.start()
+```
+
+## Document Operations
+
+### Opening Documents
+
+```python
+# Open a document
+lsp.did_open('/project/src/index.ts')
+```
+
+### Getting Document Symbols
+
+```python
+# Get document symbols
+symbols = lsp.document_symbols('/project/src/index.ts')
+for symbol in symbols:
+    print(f"Symbol: {symbol.name}, Kind: {symbol.kind}")
+```
+
+## Code Intelligence
+
+### Code Completion
+
+```python
+# Get completions
+position = {"line": 10, "character": 15}
+completions = lsp.completions('/project/src/index.ts', position)
+```
+
+### Go to Definition
+
+```python
+# Find symbol definition
+position = {"line": 5, "character": 20}
+definition = lsp.definition('/project/src/index.ts', position)
+```
+
+### Find References
+
+```python
+# Find symbol references
+position = {"line": 8, "character": 12}
+references = lsp.references('/project/src/index.ts', position)
+```
+
+## Diagnostics
+
+```python
+# Get diagnostics
+diagnostics = lsp.diagnostic('/project/src/index.ts')
+for diagnostic in diagnostics:
+    print(f"Error: {diagnostic.message} at line {diagnostic.range.start.line}")
+```
+
+## Language-Specific Features
+
+### TypeScript Example
+
+```python
+# TypeScript-specific features
+lsp = workspace.create_lsp_server('typescript', '/project')
+lsp.start()
+
+# Get type definition
+type_info = lsp.type_definition('/project/src/index.ts', position)
+```
+
+### Python Example
+
+```python
+# Python-specific features
+lsp = workspace.create_lsp_server('python', '/project')
+lsp.start()
+
+# Get hover information
+hover_info = lsp.hover('/project/src/main.py', position)
+```
+
+## Best Practices
+
+1. Clean up LSP servers:
+
+```python
+try:
+    lsp = workspace.create_lsp_server('python', '/project')
+    lsp.start()
+    # Your LSP operations
+finally:
+    lsp.stop()
+```
+
+2. Handle LSP errors:
+
+```python
+try:
+    completions = lsp.completions(file_path, position)
+except Exception as e:
+    print(f"LSP error: {e}")
+```
+
+3. Optimize performance:
+
+```python
+# Batch operations when possible
+symbols = lsp.document_symbols(file_path)
+diagnostics = lsp.diagnostic(file_path)
+```
