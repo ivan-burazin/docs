@@ -1,0 +1,108 @@
+---
+title: Git Integration
+description: Learn how to use Git operations in your Daytona workspace.
+---
+
+The Daytona SDK provides seamless Git integration for managing repositories within your workspace.
+
+## Basic Operations
+
+### Cloning Repositories
+
+```python
+# Clone a repository
+workspace.git.clone(
+    'https://github.com/example/repo',
+    '/project',
+    'main'  # Specify branch
+)
+```
+
+### Checking Status
+
+```python
+# Get repository status
+status = workspace.git.status('/project')
+print(f"Current branch: {status.current_branch}")
+print(f"Is clean: {status.is_clean}")
+```
+
+## Branch Management
+
+```python
+# Create and switch to a new branch
+workspace.git.checkout('/project', 'feature/new-feature', create=True)
+
+# Switch to existing branch
+workspace.git.checkout('/project', 'main')
+```
+
+## Committing Changes
+
+```python
+# Stage changes
+workspace.git.add('/project', ['file1.txt', 'file2.txt'])
+
+# Commit changes
+workspace.git.commit('/project', 'Add new features')
+```
+
+## Remote Operations
+
+```python
+# Push changes
+workspace.git.push('/project', 'origin', 'main')
+
+# Pull changes
+workspace.git.pull('/project', 'origin', 'main')
+```
+
+## Advanced Operations
+
+### Working with Submodules
+
+```python
+# Initialize and update submodules
+workspace.git.submodule_init('/project')
+workspace.git.submodule_update('/project')
+```
+
+### Managing Remote Repositories
+
+```python
+# Add remote
+workspace.git.remote_add('/project', 'upstream', 'https://github.com/upstream/repo')
+
+# List remotes
+remotes = workspace.git.remote_list('/project')
+```
+
+## Best Practices
+
+1. Handle authentication properly:
+
+```python
+# Use HTTPS with credentials
+workspace.git.clone(
+    'https://username:token@github.com/example/repo',
+    '/project'
+)
+```
+
+2. Check repository state:
+
+```python
+status = workspace.git.status('/project')
+if not status.is_clean:
+    print("Warning: Working directory has uncommitted changes")
+```
+
+3. Use proper error handling:
+
+```python
+try:
+    workspace.git.clone(repo_url, target_dir)
+except Exception as e:
+    print(f"Git operation failed: {e}")
+    raise
+```

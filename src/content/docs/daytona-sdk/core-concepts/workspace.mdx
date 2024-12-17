@@ -1,0 +1,88 @@
+---
+title: Workspace Management
+description: Learn how to create, manage, and clean up development workspaces with the Daytona SDK.
+---
+
+Workspaces are isolated development environments that provide a secure and consistent platform for running code, managing files, and executing commands.
+
+## Creating a Workspace
+
+```python
+from daytona_sdk import Daytona
+from daytona_sdk.daytona import CreateWorkspaceParams
+
+# Initialize the SDK
+daytona = Daytona()
+
+# Configure workspace parameters
+params = CreateWorkspaceParams(
+    language='python',  # Specify programming language
+    image='ai-test:1'   # Choose container image
+)
+
+# Create the workspace
+workspace = daytona.create(params)
+```
+
+## Workspace Configuration Options
+
+- `language`: Programming language for the workspace
+- `image`: Container image to use
+- `env`: Environment variables (optional)
+- `working_directory`: Custom working directory (optional)
+
+## Getting Workspace Information
+
+```python
+# Get workspace root directory
+root_dir = workspace.get_workspace_root_dir()
+
+# Get workspace ID
+workspace_id = workspace.id
+```
+
+## Cleaning Up
+
+Always clean up workspaces when you're done to free up resources:
+
+```python
+# Remove the workspace
+daytona.remove(workspace)
+```
+
+## Best Practices
+
+1. Use try-finally blocks to ensure cleanup:
+
+```python
+workspace = None
+try:
+    workspace = daytona.create(params)
+    # Your workspace operations here
+finally:
+    if workspace:
+        daytona.remove(workspace)
+```
+
+2. Set appropriate environment variables:
+
+```python
+params = CreateWorkspaceParams(
+    language='python',
+    image='ai-test:1',
+    env={
+        'PYTHONPATH': '/workspace/src',
+        'DEBUG': 'true'
+    }
+)
+```
+
+3. Handle errors gracefully:
+
+```python
+try:
+    workspace = daytona.create(params)
+except Exception as e:
+    print(f"Failed to create workspace: {e}")
+    raise
+```

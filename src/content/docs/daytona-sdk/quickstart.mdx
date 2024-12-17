@@ -1,0 +1,92 @@
+---
+title: Quick Start Guide
+description: Get started with the Daytona SDK quickly and easily.
+---
+
+This guide will help you get up and running with the Daytona SDK in minutes.
+
+## Prerequisites
+
+- Python 3.7+ or Node.js 14+
+- pip or npm package manager
+
+## Installation
+
+```bash
+# For Python
+pip install daytona-sdk
+
+# For TypeScript/JavaScript
+npm install @daytona/sdk
+```
+
+## Basic Usage
+
+### 1. Create a Workspace
+
+```python
+from daytona_sdk import Daytona
+from daytona_sdk.daytona import CreateWorkspaceParams
+
+# Initialize the SDK
+daytona = Daytona()
+
+# Create a workspace
+params = CreateWorkspaceParams(
+    language='python',
+    image='ai-test:1'
+)
+workspace = daytona.create(params)
+```
+
+### 2. Run Code
+
+```python
+# Execute Python code
+response = workspace.process.code_run('print("Hello, World!")')
+print(response.result)
+
+# Execute shell commands
+result = workspace.process.exec('ls -la')
+print(result.output)
+```
+
+### 3. Work with Files
+
+```python
+# Create a directory
+workspace.fs.create_folder('/project/src')
+
+# Upload a file
+workspace.fs.upload_file('/project/src/main.py', 'print("Hello from file!")')
+
+# List files
+files = workspace.fs.list_files('/project')
+print(files)
+```
+
+### 4. Use Git Integration
+
+```python
+# Clone a repository
+workspace.git.clone(
+    'https://github.com/example/repo',
+    '/project',
+    'main'
+)
+```
+
+### 5. Clean Up
+
+```python
+# Always clean up when done
+daytona.remove(workspace)
+```
+
+## Next Steps
+
+- Learn about [Workspace Management](/daytona-sdk/core-concepts/workspace)
+- Explore [File Operations](/daytona-sdk/core-concepts/file-operations)
+- Understand [Process Management](/daytona-sdk/core-concepts/process)
+- Check out [Git Integration](/daytona-sdk/core-concepts/git)
+- Implement [LSP Integration](/daytona-sdk/core-concepts/lsp)

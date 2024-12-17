@@ -1,0 +1,276 @@
+---
+title: API Reference
+description: Complete API documentation for the Daytona SDK.
+---
+
+## Daytona Class
+
+The main entry point for the SDK.
+
+### Constructor
+
+```python
+from daytona_sdk import Daytona
+
+# Default initialization
+daytona = Daytona()
+
+# Custom configuration
+daytona = Daytona(
+    api_url='your_api_url',
+    api_key='your_api_key'
+)
+```
+
+### Methods
+
+#### create()
+
+Creates a new workspace.
+
+```python
+workspace = daytona.create(params: CreateWorkspaceParams)
+```
+
+Parameters:
+
+- `params`: CreateWorkspaceParams object
+
+Returns:
+
+- `Workspace`: New workspace instance
+
+#### remove()
+
+Removes a workspace.
+
+```python
+daytona.remove(workspace: Workspace)
+```
+
+Parameters:
+
+- `workspace`: Workspace instance to remove
+
+## CreateWorkspaceParams Class
+
+Configuration for workspace creation.
+
+```python
+from daytona_sdk.daytona import CreateWorkspaceParams
+
+params = CreateWorkspaceParams(
+    language='python',
+    image='ai-test:1',
+    env={'KEY': 'value'},
+    working_directory='/custom/path'
+)
+```
+
+Properties:
+
+- `language`: Programming language
+- `image`: Container image
+- `env`: Environment variables (optional)
+- `working_directory`: Custom working directory (optional)
+
+## Workspace Class
+
+Represents a development workspace.
+
+### Properties
+
+- `id`: Workspace identifier
+- `root_dir`: Root directory path
+
+### Methods
+
+#### get_workspace_root_dir()
+
+```python
+root_dir = workspace.get_workspace_root_dir()
+```
+
+Returns:
+
+- `str`: Workspace root directory path
+
+## FileSystem Class
+
+File system operations interface.
+
+### Methods
+
+#### list_files()
+
+```python
+files = workspace.fs.list_files(directory: str)
+```
+
+Parameters:
+
+- `directory`: Directory path
+
+Returns:
+
+- `List[FileInfo]`: List of files and directories
+
+#### create_folder()
+
+```python
+workspace.fs.create_folder(path: str, permissions: str = '755')
+```
+
+Parameters:
+
+- `path`: Folder path
+- `permissions`: Unix permissions (optional)
+
+#### upload_file()
+
+```python
+workspace.fs.upload_file(file_path: str, content: str)
+```
+
+Parameters:
+
+- `file_path`: Target file path
+- `content`: File content
+
+#### download_file()
+
+```python
+content = workspace.fs.download_file(file_path: str)
+```
+
+Parameters:
+
+- `file_path`: File path
+
+Returns:
+
+- `str`: File content
+
+## Process Class
+
+Process execution interface.
+
+### Methods
+
+#### code_run()
+
+```python
+response = workspace.process.code_run(code: str)
+```
+
+Parameters:
+
+- `code`: Code to execute
+
+Returns:
+
+- `ProcessResponse`: Execution result
+
+#### exec()
+
+```python
+result = workspace.process.exec(
+    command: str,
+    env: Dict[str, str] = None,
+    cwd: str = None,
+    timeout: int = None
+)
+```
+
+Parameters:
+
+- `command`: Shell command
+- `env`: Environment variables (optional)
+- `cwd`: Working directory (optional)
+- `timeout`: Command timeout in seconds (optional)
+
+Returns:
+
+- `ProcessResult`: Execution result
+
+## Git Class
+
+Git operations interface.
+
+### Methods
+
+#### clone()
+
+```python
+workspace.git.clone(
+    repository: str,
+    directory: str,
+    branch: str = None
+)
+```
+
+Parameters:
+
+- `repository`: Repository URL
+- `directory`: Target directory
+- `branch`: Branch name (optional)
+
+#### status()
+
+```python
+status = workspace.git.status(directory: str)
+```
+
+Parameters:
+
+- `directory`: Repository directory
+
+Returns:
+
+- `GitStatus`: Repository status
+
+## LSP Class
+
+Language Server Protocol interface.
+
+### Methods
+
+#### start()
+
+```python
+lsp.start()
+```
+
+Starts the LSP server.
+
+#### completions()
+
+```python
+completions = lsp.completions(
+    file_path: str,
+    position: Dict[str, int]
+)
+```
+
+Parameters:
+
+- `file_path`: Source file path
+- `position`: Cursor position (line, character)
+
+Returns:
+
+- `List[Completion]`: Available completions
+
+#### document_symbols()
+
+```python
+symbols = lsp.document_symbols(file_path: str)
+```
+
+Parameters:
+
+- `file_path`: Source file path
+
+Returns:
+
+- `List[Symbol]`: Document symbols

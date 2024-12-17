@@ -1,0 +1,240 @@
+---
+title: Best Practices
+description: Learn the recommended practices for using the Daytona SDK effectively and safely.
+---
+
+## Resource Management
+
+### Proper Workspace Cleanup
+
+Always clean up workspaces when you're done to prevent resource leaks:
+
+```python
+workspace = None
+try:
+    workspace = daytona.create(params)
+    # Your workspace operations
+finally:
+    if workspace:
+        daytona.remove(workspace)
+```
+
+### LSP Server Management
+
+Properly manage LSP server lifecycle:
+
+```python
+lsp = None
+try:
+    lsp = workspace.create_lsp_server('python', '/project')
+    lsp.start()
+    # Your LSP operations
+finally:
+    if lsp:
+        lsp.stop()
+```
+
+## Error Handling
+
+### Comprehensive Error Handling
+
+Implement proper error handling for all operations:
+
+```python
+try:
+    workspace = daytona.create(params)
+except Exception as e:
+    print(f"Failed to create workspace: {e}")
+    raise
+
+try:
+    workspace.fs.upload_file('/path/to/file', content)
+except FileNotFoundError:
+    print("File not found")
+except PermissionError:
+    print("Permission denied")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+
+### Process Execution
+
+Always check process execution results:
+
+```python
+result = workspace.process.exec('npm install')
+if result.code != 0:
+    print(f"Command failed with code {result.code}")
+    print(f"Error output: {result.output}")
+    raise Exception("Command execution failed")
+```
+
+## Performance Optimization
+
+### Batch Operations
+
+Group related operations together:
+
+```python
+# Good: Batch file operations
+files_to_upload = {
+    '/project/src/main.py': content1,
+    '/project/src/utils.py': content2
+}
+for path, content in files_to_upload.items():
+    workspace.fs.upload_file(path, content)
+
+# Bad: Multiple separate operations
+workspace.fs.upload_file('/project/src/main.py', content1)
+workspace.fs.upload_file('/project/src/utils.py', content2)
+```
+
+### Resource Reuse
+
+Reuse workspace instances when possible:
+
+```python
+# Good: Reuse workspace
+workspace = daytona.create(params)
+try:
+    workspace.process.exec('command1')
+    workspace.process.exec('command2')
+    workspace.process.exec('command3')
+finally:
+    daytona.remove(workspace)
+
+# Bad: Create multiple workspaces
+workspace1 = daytona.create(params)
+workspace1.process.exec('command1')
+daytona.remove(workspace1)
+
+workspace2 = daytona.create(params)
+workspace2.process.exec('command2')
+daytona.remove(workspace2)
+```
+
+## Security
+
+### Environment Variables
+
+Securely handle sensitive information:
+
+```python
+# Good: Use environment variables for sensitive data
+import os
+
+api_key = os.environ.get('DAYTONA_API_KEY')
+daytona = Daytona(api_key=api_key)
+
+# Bad: Hardcode sensitive data
+daytona = Daytona(api_key='your-api-key-here')
+```
+
+### File Permissions
+
+Set appropriate file permissions:
+
+```python
+# Set restrictive permissions for sensitive files
+workspace.fs.create_folder('/project/secrets', '700')
+workspace.fs.upload_file('/project/secrets/config.json', content)
+```
+
+## Code Organization
+
+### Modular Structure
+
+Organize code into logical modules:
+
+```python
+class WorkspaceManager:
+    def __init__(self):
+        self.daytona = Daytona()
+        self.workspace = None
+
+    def setup(self):
+        params = CreateWorkspaceParams(
+            language='python',
+            image='ai-test:1'
+        )
+        self.workspace = self.daytona.create(params)
+
+    def cleanup(self):
+        if self.workspace:
+            self.daytona.remove(self.workspace)
+
+    def __enter__(self):
+        self.setup()
+        return self.workspace
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
+
+# Usage
+with WorkspaceManager() as workspace:
+    workspace.process.exec('your command')
+```
+
+## Testing
+
+### Test Environment Setup
+
+Create isolated test environments:
+
+```python
+def setup_test_workspace():
+    params = CreateWorkspaceParams(
+        language='python',
+        image='ai-test:1',
+        env={'TEST_MODE': 'true'}
+    )
+    return daytona.create(params)
+
+def test_workspace_operations():
+    workspace = setup_test_workspace()
+    try:
+        # Your test code
+        assert workspace.process.code_run('print("test")').code == 0
+    finally:
+        daytona.remove(workspace)
+```
+
+## Documentation
+
+### Code Comments
+
+Add meaningful comments to your code:
+
+```python
+def process_workspace(workspace):
+    # Upload project files
+    workspace.fs.upload_file('/project/main.py', content)
+
+    # Initialize development environment
+    result = workspace.process.exec('pip install -r requirements.txt')
+    if result.code != 0:
+        raise Exception("Failed to initialize environment")
+
+    # Start development server
+    workspace.process.exec('python main.py', env={'PORT': '8000'})
+```
+
+## Version Control
+
+### Git Best Practices
+
+Handle Git operations safely:
+
+```python
+try:
+    # Clone with specific branch
+    workspace.git.clone(repo_url, '/project', 'main')
+
+    # Check repository state
+    status = workspace.git.status('/project')
+    if not status.is_clean:
+        print("Warning: Working directory has uncommitted changes")
+except Exception as e:
+    print(f"Git operation failed: {e}")
+    raise
+```

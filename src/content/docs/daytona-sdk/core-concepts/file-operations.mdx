@@ -1,0 +1,103 @@
+---
+title: File Operations
+description: Learn how to manage files and directories in your Daytona workspace.
+---
+
+The Daytona SDK provides comprehensive file system operations for managing files and directories in your workspace.
+
+## Basic Operations
+
+### Listing Files
+
+```python
+# List files in a directory
+files = workspace.fs.list_files('/project')
+for file in files:
+    print(f"Name: {file.name}, Type: {file.type}")
+```
+
+### Creating Directories
+
+```python
+# Create a new directory
+workspace.fs.create_folder('/project/src', '755')  # With permissions
+```
+
+### Uploading Files
+
+```python
+# Upload a file with content
+content = """
+def hello():
+    print("Hello, World!")
+"""
+workspace.fs.upload_file('/project/src/main.py', content)
+```
+
+### Downloading Files
+
+```python
+# Read file content
+content = workspace.fs.download_file('/project/src/main.py')
+print(content)
+```
+
+## Advanced Operations
+
+### Finding Files
+
+```python
+# Search for files
+matches = workspace.fs.find_files('/project', '*.py')
+for match in matches:
+    print(f"Found Python file: {match}")
+```
+
+### Modifying Files
+
+```python
+# Replace content in files
+workspace.fs.replace_in_files(
+    ['/project/src/main.py'],
+    'Hello, World',
+    'Hello, Daytona'
+)
+```
+
+### File Permissions
+
+```python
+# Set file permissions
+workspace.fs.chmod('/project/script.sh', '755')
+```
+
+## Best Practices
+
+1. Use proper error handling:
+
+```python
+try:
+    workspace.fs.upload_file('/path/to/file', content)
+except Exception as e:
+    print(f"Failed to upload file: {e}")
+```
+
+2. Clean up temporary files:
+
+```python
+try:
+    # Your file operations
+    workspace.fs.upload_file('/tmp/temp.txt', 'temporary content')
+    # Process the file
+finally:
+    # Clean up
+    workspace.fs.remove('/tmp/temp.txt')
+```
+
+3. Use appropriate permissions:
+
+```python
+# Create directory with specific permissions
+workspace.fs.create_folder('/project/bin', '755')  # Executable
+workspace.fs.create_folder('/project/data', '644')  # Regular files
+```
