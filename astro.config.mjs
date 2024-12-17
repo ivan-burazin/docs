@@ -170,6 +170,86 @@ export default defineConfig({
                 icon: 'docker.svg',
               },
             },
+            {
+              label: 'SDK',
+              items: [
+                {
+                  label: 'Overview',
+                  link: '/daytona-sdk',
+                  attrs: {
+                    icon: 'code.svg',
+                  },
+                },
+                {
+                  label: 'Installation',
+                  link: '/daytona-sdk/installation',
+                  attrs: {
+                    icon: 'install.svg',
+                  },
+                },
+                {
+                  label: 'Quick Start',
+                  link: '/daytona-sdk/quickstart',
+                  attrs: {
+                    icon: 'bookmark.svg',
+                  },
+                },
+                {
+                  label: 'Core Concepts',
+                  items: [
+                    {
+                      label: 'Workspaces',
+                      link: '/daytona-sdk/core-concepts/workspace',
+                      attrs: {
+                        icon: 'computer.svg',
+                      },
+                    },
+                    {
+                      label: 'File Operations',
+                      link: '/daytona-sdk/core-concepts/file-operations',
+                      attrs: {
+                        icon: 'folder.svg',
+                      },
+                    },
+                    {
+                      label: 'Process Management',
+                      link: '/daytona-sdk/core-concepts/process',
+                      attrs: {
+                        icon: 'terminal.svg',
+                      },
+                    },
+                    {
+                      label: 'Git Integration',
+                      link: '/daytona-sdk/core-concepts/git',
+                      attrs: {
+                        icon: 'git-branch.svg',
+                      },
+                    },
+                    {
+                      label: 'LSP Integration',
+                      link: '/daytona-sdk/core-concepts/lsp',
+                      attrs: {
+                        icon: 'code.svg',
+                      },
+                    },
+                  ],
+                },
+                {
+                  label: 'API Reference',
+                  link: '/daytona-sdk/api-reference',
+                  attrs: {
+                    icon: 'switch.svg',
+                  },
+                },
+                {
+                  label: 'Best Practices',
+                  link: '/daytona-sdk/best-practices',
+                  attrs: {
+                    icon: 'flag.svg',
+                  },
+                },
+              ],
+            },
           ],
         },
         {
